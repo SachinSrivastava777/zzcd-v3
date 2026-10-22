@@ -1,0 +1,17 @@
+# Python
+__pycache__/
+*.py[cod]
+.venv/
+venv/
+.pytest_cache/
+# Local configuration/secrets
+.env
+.env.*
+!.env.example
+# Workspaces/build artifacts
+workspace/*
+!workspace/.gitkeep
+node_modules/
+dist/
+build/
+*.log

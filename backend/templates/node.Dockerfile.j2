@@ -1,0 +1,17 @@
+FROM node:20-slim
+
+WORKDIR /app
+
+COPY package*.json ./
+
+RUN npm ci --omit=dev || npm install --omit=dev
+
+COPY . .
+
+RUN useradd -m appuser && chown -R appuser:appuser /app
+USER appuser
+
+ENV PORT={{ port }}
+EXPOSE {{ port }}
+
+CMD {{ run_cmd_json }}

@@ -1,0 +1,12 @@
+FROM gcc:13 AS build
+WORKDIR /src
+COPY . .
+RUN cmake -S . -B build -DCMAKE_BUILD_TYPE=Release && cmake --build build --parallel
+
+FROM debian:bookworm-slim
+WORKDIR /app
+COPY --from=build /src/build/ /app/
+ENV PORT={{ port }}
+EXPOSE {{ port }}
+# Generic C++ projects may not create an executable named app; verify the target in CMakeLists.txt.
+CMD {{ run_cmd_json }}
